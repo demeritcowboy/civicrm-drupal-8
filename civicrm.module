@@ -265,6 +265,15 @@ function _civicrm_get_profiles($contact_id) {
 }
 
 /**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function civicrm_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  if ($entity_type->id() === 'user' && !empty($fields['mail'])) {
+    $fields['mail']->setRequired(TRUE);
+  }
+}
+
+/**
  * Implements hook_form_user_form_alter().
  */
 function civicrm_form_user_form_alter(&$form, &$form_state, $form_id) {
